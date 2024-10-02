@@ -1,4 +1,4 @@
-# Ant Design Pro
+# User Center
 
 This project is initialized with [Ant Design Pro](https://pro.ant.design). Follow is the quick guide for how to use.
 
@@ -55,3 +55,35 @@ npm test
 ## More
 
 You can view full document on our [official website](https://pro.ant.design). And welcome any feedback in our [github](https://github.com/ant-design/ant-design-pro).
+
+## Docker
+
+### build
+
+```
+sudo docker build -t user-center-frontend:v0.0.1 .
+```
+
+### 运行
+
+```
+sudo docker run -p 80:80 -d user-center-frontend:v0.0.1
+```
+
+### 查看日志
+
+```
+sudo docker logs 容器ID -f
+```
+
+### 进入容器
+
+```
+sudo docker exec -i -t 容器ID /bin/bash
+```
+
+### 强制删除镜像
+
+```
+sudo docker rmi -f
+```

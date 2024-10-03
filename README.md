@@ -87,3 +87,23 @@ sudo docker exec -i -t 容器ID /bin/bash
 ```
 sudo docker rmi -f
 ```
+
+## 代理
+
+nginx 配置
+
+```
+location ^~ /api {
+  proxy_pass http://127.0.0.1:8080/api;
+  proxy_set_header Origin '';
+  add_header Access-Control-Allow-Credentials true;
+  add_header Access-Control-Allow-Headers $http_access_control_request_headers;
+  add_header Access-Control-Allow-Methods POST,GET,OPTIONS,DELETE,PUT,HEAD,PATCH;
+  add_header Access-Control-Allow-Origin $http_origin;
+  add_header Access-Control-Expose-Headers $http_access_control_request_headers;
+
+  if ($request_method = 'OPTIONS') {
+    return 204;
+  }
+}
+```

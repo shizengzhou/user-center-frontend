@@ -131,7 +131,5 @@ const responseInterceptor = async (response: Response) => {
 };
 
 export const request: RequestConfig = {
-  credentials: 'include',
-  prefix: !isDev ? 'http://43.199.77.132' : undefined,
   responseInterceptors: [responseInterceptor],
 };

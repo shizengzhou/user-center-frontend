@@ -52,6 +52,16 @@ export async function searchUsers(options?: { [key: string]: any }) {
   });
 }
 
+export async function deleteUser(body: API.DeleteUserParams) {
+  return request<API.BaseResponse<number>>('/api/users/delete', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+  });
+}
+
 /** 此处后端没有提供注释 GET /api/notices */
 export async function getNotices(options?: { [key: string]: any }) {
   return request<API.NoticeIconList>('/api/notices', {

@@ -79,6 +79,10 @@ declare namespace API {
     type?: string;
   };
 
+  type DeleteUserParams = {
+    id: number;
+  };
+
   type ErrorResponse = {
     /** 业务约定的错误码 */
     errorCode: string;

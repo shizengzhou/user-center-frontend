@@ -1,8 +1,23 @@
-import { searchUsers } from '@/services/ant-design-pro/api';
+import { deleteUser, searchUsers } from '@/services/ant-design-pro/api';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
-import { PageContainer, ProTable, TableDropdown } from '@ant-design/pro-components';
-import { Image } from 'antd';
+import { PageContainer, ProTable } from '@ant-design/pro-components';
+import { Button, Image, message } from 'antd';
 import { useRef } from 'react';
+
+const handleRemove = async (id: number) => {
+  const hide = message.loading('正在删除');
+  if (!id) return true;
+  try {
+    await deleteUser({ id });
+    hide();
+    message.success('删除成功');
+    return true;
+  } catch (error: any) {
+    hide();
+    message.error(`删除失败，${error.message}`);
+    return false;
+  }
+};
 
 const UserMange: React.FC = () => {
   const actionRef = useRef<ActionType>();
@@ -73,25 +88,19 @@ const UserMange: React.FC = () => {
       dataIndex: 'option',
       valueType: 'option',
       render: (text, record, _, action) => [
-        <a
-          key="editable"
-          onClick={() => {
-            action?.startEditable?.(record.id);
+        <Button
+          type="text"
+          danger
+          key="delete"
+          onClick={async () => {
+            const success = await handleRemove(record.id);
+            if (success) {
+              actionRef.current?.reload();
+            }
           }}
         >
-          编辑
-        </a>,
-        <a href={record.url} target="_blank" rel="noopener noreferrer" key="view">
-          查看
-        </a>,
-        <TableDropdown
-          key="actionGroup"
-          onSelect={() => action?.reload()}
-          menus={[
-            { key: 'copy', name: '复制' },
-            { key: 'delete', name: '删除' },
-          ]}
-        />,
+          删除
+        </Button>,
       ],
     },
   ];
@@ -105,7 +114,6 @@ const UserMange: React.FC = () => {
           labelWidth: 'auto',
         }}
         request={async (params = {}, sort, filter) => {
-          console.log(sort, filter);
           const userList = await searchUsers();
           return {
             data: userList.data,

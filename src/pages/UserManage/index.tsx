@@ -8,7 +8,7 @@ const handleRemove = async (id: number) => {
   const hide = message.loading('正在删除');
   if (!id) return true;
   try {
-    await deleteUser({ id });
+    await deleteUser(id);
     hide();
     message.success('删除成功');
     return true;

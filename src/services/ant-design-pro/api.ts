@@ -52,13 +52,13 @@ export async function searchUsers(options?: { [key: string]: any }) {
   });
 }
 
-export async function deleteUser(body: API.DeleteUserParams) {
+export async function deleteUser(id: number) {
   return request<API.BaseResponse<number>>('/api/users/delete', {
-    method: 'POST',
+    method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
     },
-    data: body,
+    params: { id },
   });
 }
 
